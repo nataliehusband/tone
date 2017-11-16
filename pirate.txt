@@ -1,0 +1,17 @@
+A4 4
+B4 4
+C4 8
+REST 8
+C4 8
+B4 4 
+D4 4
+A4 8
+REST 8
+C4 8
+B4 4
+F3S 4
+C4 8
+REST 8
+C4 8
+B4 4
+F3S 4
