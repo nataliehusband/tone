@@ -20,6 +20,8 @@ public class Tone {
 
 	/**
 	 * The method that creates the list for the bell notes, and the method that reads the file
+	 * this code came from Nate's bell notes. I only added a couple things to it, like the parseBellNote. 
+	 * Nate helped me with that too, though. 
 	 */
 	private static List<BellNote> loadNotes(String song) {
 		final List<BellNote> notes = new ArrayList<>(); 
@@ -43,6 +45,12 @@ public class Tone {
 		return notes; //returns notes so that song can be played
 	} 
 	
+	/**
+	 * This code came from tic tac toe, I changed it so that it matched the variables and requirements for this program
+	 * Nate helped with this
+	 * @param line
+	 * @return
+	 */
 	private static BellNote parseBellNote(String line) { //method to parse the notes/split the components up to be readable
 		String[] fields = line.split("\\s+"); //splits the line up when there is one or many white spaces
 		if (fields.length == 2) { //if the field has 2 items/1 split in it 
@@ -52,7 +60,7 @@ public class Tone {
 	}
 	
 	/**
-	 * method that parses the Notes
+	 * method that parses the Notes. Nate showed me how to do this and then I wrote most of it on my own.
 	 * @param bunny
 	 * @return
 	 */
@@ -101,6 +109,7 @@ public class Tone {
 	
 	/**
 	 * parses the notelength handed to it
+	 * Nate showed me how to do this
 	 * @param rabbit
 	 * @return
 	 */
@@ -121,6 +130,7 @@ public class Tone {
 
 	/**
 	 * main
+	 * I didn't have to change much of main aside from adding the validate data method 
 	 * @param args
 	 * @throws Exception
 	 */
@@ -139,6 +149,8 @@ public class Tone {
 
 	/**
 	 * validate data method
+	 * I got this code from tic tac toe and then changed it so that it met the requirements. 
+	 * this I was able to do myself
 	 * @param sun
 	 * @param ln
 	 * @param no
@@ -166,7 +178,7 @@ public class Tone {
 	}
 
 	/**
-	 * 
+	 * This was already here in the code provided to us 
 	 * @param song
 	 * @throws LineUnavailableException
 	 */
@@ -182,7 +194,7 @@ public class Tone {
 	}
 
 	/**
-	 * 
+	 * play note was also provided to us by Nate
 	 * @param line
 	 * @param bn
 	 */
@@ -194,7 +206,9 @@ public class Tone {
 	}
 }
 
-
+/**
+ * this class was also already here 
+ */
 class BellNote { 
 	final Note note; //declares note
 	final NoteLength length; //declares length
@@ -205,6 +219,9 @@ class BellNote {
 	}
 }
 
+/**
+ * This enum was provided to us, I only added the INVALID for data validation
+ */
 enum NoteLength { //declares each of the lengths for the NoteLength
 	INVALID(0),
 	WHOLE(1.0f),
@@ -223,6 +240,9 @@ enum NoteLength { //declares each of the lengths for the NoteLength
 	}
 }
 
+/**
+ * This enum was also already here and I again only added the INVALID
+ */
 enum Note { 
 	REST,
 	A3,
