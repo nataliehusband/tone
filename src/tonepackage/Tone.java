@@ -18,7 +18,9 @@ import javax.sound.sampled.SourceDataLine;
 
 public class Tone {
 
-	//The method that creates the list for the bell notes, and the method that reads the file
+	/**
+	 * The method that creates the list for the bell notes, and the method that reads the file
+	 */
 	private static List<BellNote> loadNotes(String song) {
 		final List<BellNote> notes = new ArrayList<>(); 
 		final File file = new File(song); 
@@ -49,9 +51,14 @@ public class Tone {
 		return null;
 	}
 	
-	private static Note parseNote(String bunny) { //method that parses the Notes
-		switch (bunny.toUpperCase()) { //changes all the string aspects of bunny (the note entered) to upper case
-		case "REST": //the switch cases then check the field[0] that was handed to them to see if one matches and then returns the appropriate note
+	/**
+	 * method that parses the Notes
+	 * @param bunny
+	 * @return
+	 */
+	private static Note parseNote(String bunny) { 
+		switch (bunny.toUpperCase()) { 
+		case "REST": 
 			return Note.REST;
 		case "A4": 
 			return Note.A4; 
@@ -91,9 +98,15 @@ public class Tone {
 			return Note.INVALID;  //if the note does not match any of the above it returns and invalid note
 		}
 	}
-	private static NoteLength parseNoteLength(String rabbit) { //parses the noteLength or field[1] handed to it
+	
+	/**
+	 * parses the notelength handed to it
+	 * @param rabbit
+	 * @return
+	 */
+	private static NoteLength parseNoteLength(String rabbit) {
 		switch (rabbit.toLowerCase()) {
-		case "4": //switch/case checks to see which number it is handed matches the below and then returns appropriate noteLength
+		case "4": 
 			return NoteLength.QUARTER; 
 		case "2": 
 			return NoteLength.HALF; 
@@ -102,37 +115,48 @@ public class Tone {
 		case "1": 
 			return NoteLength.WHOLE;
 		default: 
-			return NoteLength.INVALID; //if the number does not match anything, returns the noteLength is invalid
+			return NoteLength.INVALID; 			
 		}
 	}
 
-	public static void main(String[] args) throws Exception { //main
-		NoteLength ln = null; //declares and initializes ln to null
-		Note no = null; //declares and initializes no to null
+	/**
+	 * main
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception { 
+		NoteLength ln = null; 
+		Note no = null; 
 		final AudioFormat af =
 				new AudioFormat(Note.SAMPLE_RATE, 8, 1, true, false); 
-		Tone t = new Tone(af); //declares and initializes new Tone
-		final List<BellNote> sun = loadNotes(args[0]); //declares and initializes the list<BellNote> in this instance
-		t.playSong(sun); //calls the method to play the song
-		if (!validateData(sun, ln, no)) { //calls the validation method to ensure that the data entered is valid
+		Tone t = new Tone(af); 
+		final List<BellNote> sun = loadNotes(args[0]); 
+		if (!validateData(sun, ln, no)) { 
 			System.err.println("Failed");
 			System.exit(-1);
-		}
-	}
-	
+		}t.playSong(sun); 
+	}		
+
+	/**
+	 * validate data method
+	 * @param sun
+	 * @param ln
+	 * @param no
+	 * @return
+	 */
 	private static boolean validateData(List<BellNote> sun, NoteLength ln, Note no) { //validation method to check data
-		boolean success = true; //sets a boolean to true 
-		for(BellNote s : sun ) { //for the length of BellNote, method will run
-			if (s.note == Note.INVALID) { //if the note is Invalid, enter If statement
+		boolean success = true;  
+		for(BellNote s : sun ) { 
+			if (s.note == Note.INVALID) { 
 				System.err.println("Invalid Note"); 
-				success = false; //sets boolean to false
+				success = false; 
 			}
-			if (s.length == NoteLength.INVALID) { //if the noteLength is Invalid, enter If statement
+			if (s.length == NoteLength.INVALID) { 
 				System.err.println("Note length invalid"); 
 				success = false;
 			}
 		}
-		return success; //returns success if nothing in the file is read as Invalid
+		return success;
 	}
 
 	private final AudioFormat af;
@@ -141,6 +165,11 @@ public class Tone {
 		this.af = af;
 	}
 
+	/**
+	 * 
+	 * @param song
+	 * @throws LineUnavailableException
+	 */
 	void playSong(List<BellNote> song) throws LineUnavailableException { //method to play song
 		try (final SourceDataLine line = AudioSystem.getSourceDataLine(af)) { 
 			line.open(); 
@@ -152,6 +181,11 @@ public class Tone {
 		}
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * @param bn
+	 */
 	void playNote(SourceDataLine line, BellNote bn) { //method to go through and play each note
 		final int ms = Math.min(bn.length.timeMs(), Note.MEASURE_LENGTH_SEC * 1000); 
 		final int length = Note.SAMPLE_RATE * ms / 1000;
@@ -159,6 +193,7 @@ public class Tone {
 		line.write(Note.REST.sample(), 0, 50);
 	}
 }
+
 
 class BellNote { 
 	final Note note; //declares note
@@ -188,8 +223,7 @@ enum NoteLength { //declares each of the lengths for the NoteLength
 	}
 }
 
-enum Note { //declares each of the Notes
-	// REST Must be the first 'Note'
+enum Note { 
 	REST,
 	A3,
 	F3,
@@ -241,4 +275,3 @@ enum Note { //declares each of the Notes
 		return sinSample;
 	}
 }
-
