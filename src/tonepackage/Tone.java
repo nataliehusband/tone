@@ -20,8 +20,9 @@ public class Tone {
 
 	/**
 	 * The method that creates the list for the bell notes, and the method that reads the file
-	 * this code came from Nate's bell notes. I only added a couple things to it, like the parseBellNote. 
-	 * Nate helped me with that too, though. 
+	 * this code came from the code that was provided for us to work with. 
+	 * I only added a couple things to it, like the parseBellNote. 
+	 * Nate (my professor) helped me with that too 
 	 */
 	private static List<BellNote> loadNotes(String song) {
 		final List<BellNote> notes = new ArrayList<>(); 
@@ -46,10 +47,12 @@ public class Tone {
 	} 
 	
 	/**
-	 * This code came from tic tac toe, I changed it so that it matched the variables and requirements for this program
-	 * Nate helped with this
-	 * @param line
-	 * @return
+	 * This code came from an example program that demonstrated how to divide data provided with us and make it readable
+	 * I changed it so that it matched the variables and requirements for this program
+	 * Nate (my professor) helped with this
+	 * @param line is the line that is read from the file
+	 * @return if the line is valid then it returns the note and the length of the notes
+	 * if the line is not valid then it returns null
 	 */
 	private static BellNote parseBellNote(String line) { //method to parse the notes/split the components up to be readable
 		String[] fields = line.split("\\s+"); //splits the line up when there is one or many white spaces
@@ -60,9 +63,9 @@ public class Tone {
 	}
 	
 	/**
-	 * method that parses the Notes. Nate showed me how to do this and then I wrote most of it on my own.
-	 * @param bunny
-	 * @return
+	 * method that parses the Notes. Nate (my professor) showed me how to do this and then I wrote most of it on my own.
+	 * @param bunny which is the string that is read from the file for the Note, which is then converted to all uppercase letters
+	 * @return bunny is then returned as the note that is read or invalid if the string is not recognizable 
 	 */
 	private static Note parseNote(String bunny) { 
 		switch (bunny.toUpperCase()) { 
@@ -109,9 +112,10 @@ public class Tone {
 	
 	/**
 	 * parses the notelength handed to it
-	 * Nate showed me how to do this
-	 * @param rabbit
-	 * @return
+	 * Nate (my professor) showed me how to do this
+	 * @param rabbit is the string of Note lengths that is read from the file 
+	 * @return if the note length is valid, rabbit is returned as the amount of time that the note is to be played for
+	 * if not, it returns an invalid note
 	 */
 	private static NoteLength parseNoteLength(String rabbit) {
 		switch (rabbit.toLowerCase()) {
@@ -151,10 +155,11 @@ public class Tone {
 	 * validate data method
 	 * I got this code from tic tac toe and then changed it so that it met the requirements. 
 	 * this I was able to do myself
-	 * @param sun
-	 * @param ln
-	 * @param no
-	 * @return
+	 * @param sun is the name of the list of bell notes
+	 * @param ln the name of the note lengths
+	 * @param no the name of the note being handed to it from main
+	 * @return if the data is valid then it returns success and the song is played
+	 * if the data is not valid then it returns false and the song is not played
 	 */
 	private static boolean validateData(List<BellNote> sun, NoteLength ln, Note no) { //validation method to check data
 		boolean success = true;  
@@ -179,7 +184,7 @@ public class Tone {
 
 	/**
 	 * This was already here in the code provided to us 
-	 * @param song
+	 * @param song is the name of the list of bell notes in this instance
 	 * @throws LineUnavailableException
 	 */
 	void playSong(List<BellNote> song) throws LineUnavailableException { //method to play song
@@ -195,8 +200,8 @@ public class Tone {
 
 	/**
 	 * play note was also provided to us by Nate
-	 * @param line
-	 * @param bn
+	 * @param line the name of the line in the file
+	 * @param bnthe name of the bell note that is read from the file
 	 */
 	void playNote(SourceDataLine line, BellNote bn) { //method to go through and play each note
 		final int ms = Math.min(bn.length.timeMs(), Note.MEASURE_LENGTH_SEC * 1000); 
@@ -207,7 +212,7 @@ public class Tone {
 }
 
 /**
- * this class was also already here 
+ * this class was already in the code that we were given to work with 
  */
 class BellNote { 
 	final Note note; //declares note
@@ -241,14 +246,11 @@ enum NoteLength { //declares each of the lengths for the NoteLength
 }
 
 /**
- * This enum was also already here and I again only added the INVALID
+ * This enum was also already in the code provided and I again only added the INVALID
  */
 enum Note { 
 	REST,
-	A3,
-	F3,
-	F3S,
-	G3,
+	
 	A4,
 	A4S,
 	B4,
@@ -262,6 +264,10 @@ enum Note {
 	G4,
 	G4S,
 	A5,
+	A3,
+	F3,
+	F3S,
+	G3,
 	INVALID;
 
 	public static final int SAMPLE_RATE = 48 * 1024; // ~48KHz
